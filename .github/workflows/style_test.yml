@@ -21,11 +21,11 @@ jobs:
         uses: conda-incubator/setup-miniconda@v2
         with:
           environment-file: env.yml
-          activate-environment: ml_project_env
           auto-activate-base: false
 
-      - name: Verify Conda Environment and Tools
+      - name: Activate Conda Environment
         run: |
+          conda activate ml_project_env
           conda info --envs
           conda list
           which python
@@ -35,6 +35,7 @@ jobs:
 
       - name: Run Style Checks
         run: |
+          conda activate ml_project_env
           isort src/ tests/ scripts/
           black src/ tests/ scripts/
           flake8 src/ tests/ scripts/
