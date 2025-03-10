@@ -22,6 +22,10 @@ jobs:
         with:
           environment-file: env.yml
           activate-environment: ml_project_env
+          auto-activate-base: false  # Ensure only the custom env is activated
+
+      - name: Verify Conda Environment
+        run: conda list
 
       - name: Run isort
         run: isort src/ tests/ scripts/
