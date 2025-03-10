@@ -35,8 +35,11 @@ jobs:
 
       - name: Run Style Checks
         run: |
-          eval "$(conda shell.bash hook)"
-          conda activate ml_project_env
-          isort src/ tests/ scripts/
-          black src/ tests/ scripts/
-          flake8 src/ tests/ scripts/
+          conda run -n ml_project_env --no-capture-output isort src/ tests/ scripts/
+          conda run -n ml_project_env --no-capture-output black src/ tests/ scripts/
+          conda run -n ml_project_env --no-capture-output flake8 src/ tests/ scripts/
+
+      - name: Debug Conda Environment
+        run: |
+          conda run -n ml_project_env --no-capture-output conda info --envs
+          conda run -n ml_project_env --no-capture-output conda list
