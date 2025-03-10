@@ -24,19 +24,17 @@ jobs:
           activate-environment: ml_project_env
           auto-activate-base: false
 
-      - name: Debug Conda Activation
+      - name: Verify Conda Environment and Tools
         run: |
-          source ~/.bashrc
-          conda activate ml_project_env
-          echo "Python location: $(which python)"
-          echo "isort location: $(which isort)"
-          echo "Environment packages:"
+          conda info --envs
           conda list
+          which python
+          which isort
+          which black
+          which flake8
 
       - name: Run Style Checks
         run: |
-          source ~/.bashrc
-          conda activate ml_project_env
           isort src/ tests/ scripts/
           black src/ tests/ scripts/
           flake8 src/ tests/ scripts/
