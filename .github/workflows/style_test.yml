@@ -1,0 +1,33 @@
+name: Style Test
+
+on:
+  push:
+    branches:
+      - main
+      - feature/*
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  style-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Conda
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          environment-file: env.yml
+          activate-environment: ml_project_env
+
+      - name: Run isort
+        run: isort src/ tests/ scripts/
+
+      - name: Run black
+        run: black src/ tests/ scripts/
+
+      - name: Run flake8
+        run: flake8 src/ tests/ scripts/
