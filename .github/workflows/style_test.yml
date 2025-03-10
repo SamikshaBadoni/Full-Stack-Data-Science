@@ -25,10 +25,7 @@ jobs:
           auto-activate-base: false
 
       - name: Verify Conda Environment
-        run: conda list
-
-      - name: Install Style Tools (Manual)
-        run: conda install -c conda-forge isort black flake8 pytest -y
+        run: conda info --envs && which python && which isort
 
       - name: Run isort
         run: isort src/ tests/ scripts/
