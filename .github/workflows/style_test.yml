@@ -22,10 +22,13 @@ jobs:
         with:
           environment-file: env.yml
           activate-environment: ml_project_env
-          auto-activate-base: false  # Ensure only the custom env is activated
+          auto-activate-base: false
 
       - name: Verify Conda Environment
         run: conda list
+
+      - name: Install Style Tools (Manual)
+        run: conda install -c conda-forge isort black flake8 pytest -y
 
       - name: Run isort
         run: isort src/ tests/ scripts/
